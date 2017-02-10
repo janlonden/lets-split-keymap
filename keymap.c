@@ -8,6 +8,7 @@
 
 enum layers {
   COLEMAK,
+  BROWSER,
   LAYER1,
   LAYER2,
   LAYER3,
@@ -54,6 +55,7 @@ enum macros {
   SET_LAYER8,
   SFT__LAYERS,
   SFT__SPC,
+  SPC__BROWSER,
   VOLDOWN__GUI_LEFT,
   VOLUP__GUI_RIGHT
 };
@@ -64,7 +66,7 @@ static uint16_t key_timer;
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [COLEMAK] = KEYMAP( \
-    KC_LGUI, CM_G, CM_D, CM_B, M(RALT__SCLN), _______, _______, _______, KC_COMM, M(SET_LAYER1), KC_DOT, _______, \
+    M(SPC__BROWSER), CM_G, CM_D, CM_B, M(RALT__SCLN), _______, _______, _______, KC_COMM, M(SET_LAYER1), KC_DOT, _______, \
     CM_Q, CM_W, CM_F, CM_P, M(RALT__W), _______, _______, _______, CM_L, CM_U, CM_Y, CM_SCLN, \
     CM_A, CM_R, CM_S, CM_T, M(RALT__Q), RESET, M(LOGIN), _______, CM_N, CM_E, CM_I, CM_O, \
     CM_Z, CM_X, CM_C, CM_V, M(SFT__LAYERS), M(SFT__SPC), _______, KC_SPC, CM_H, CM_K, CM_M, CM_J \
@@ -124,6 +126,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, _______, _______, _______, _______, _______, _______, _______, KC_LPRN, KC_RPRN, S(KC_1), _______, \
     _______, _______, LCTL(CM_C), LCTL(CM_V), _______, _______, _______, _______, S(KC_LBRC), S(KC_RBRC), S(KC_BSLS), _______, \
     _______, M(SET_LAYER5), LCTL(CM_X), LCTL(KC_BSPC), _______, _______, _______, _______, KC_LBRC, KC_RBRC, KC_BSLS, _______ \
+  ),
+
+  [BROWSER] = KEYMAP( \
+    M(SPC__BROWSER), S(KC_SPC), _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
+    _______, KC_BTN3, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
+    _______, LCTL(CM_W), _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
+    _______, _______, LCTL(KC_PGUP), LCTL(KC_PGDOWN), KC_ENT, _______, _______, _______, _______, _______, _______, _______ \
   )
 };
 
@@ -523,6 +532,19 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
         register_code(KC_ENT);
       } else {
         unregister_code(KC_ENT);
+      }
+      break;
+    }
+    case SPC__BROWSER: {
+      if (record->event.pressed) {
+        key_timer = timer_read();
+        layer_on(BROWSER);
+      } else {
+        if (timer_elapsed(key_timer) < QUICK) {
+          register_code(KC_SPC);
+          unregister_code(KC_SPC);
+        }
+        layer_off(BROWSER);
       }
       break;
     }
