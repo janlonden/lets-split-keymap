@@ -8,7 +8,7 @@
 
 enum layers {
   COLEMAK,
-  BROWSER,
+  CAPSLOCK,
   LAYER0,
   LAYER1,
   LAYER2,
@@ -18,7 +18,7 @@ enum layers {
   LAYER6,
   LAYER7,
   LAYER8,
-  CAPSLOCK
+  BROWSER
 };
 
 enum macros {
