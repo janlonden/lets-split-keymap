@@ -13,7 +13,6 @@ enum layers {
   RIGHT_LAYERS,
   MISC,
   NUMBERS,
-  LAYER4,
   DEVELOPMENT,
   FUNCTION,
   LEFT_MODS,
@@ -157,7 +156,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, _______, _______, _______, _______, _______, _______, _______, KC_F10, KC_F11, KC_F12, _______, \
     _______, _______, _______, _______, _______, _______, _______, _______, KC_F7, KC_F8, KC_F9, _______, \
     _______, _______, _______, _______, _______, _______, _______, _______, KC_F4, KC_F5, KC_F6, _______, \
-    _______, _______, _______, _______, _______, _______, _______, _______, KC_F1, KC_F2, KC_F3, _______ \
+    _______, _______, _______, _______, _______, _______, _______, M(SET_FUNCTION), KC_F1, KC_F2, KC_F3, _______ \
   ),
 
   [DEVELOPMENT] = KEYMAP( \
@@ -279,10 +278,10 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
         layer_on(LEFT_LAYERS);
         register_code(KC_LSFT);
       } else {
-        layer_off(LEFT_LAYERS);
         if (timer_elapsed(key_timer) > NORMAL) {
           unregister_code(KC_LSFT);
         }
+        layer_off(LEFT_LAYERS);
       }
       break;
     }
@@ -292,18 +291,18 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
         layer_on(RIGHT_LAYERS);
         register_code(KC_RSFT);
       } else {
-        layer_off(RIGHT_LAYERS);
         unregister_code(KC_LSFT);
         if (timer_elapsed(key_timer) > NORMAL) {
           unregister_code(KC_RSFT);
         }
+        layer_off(RIGHT_LAYERS);
       }
       break;
     }
     case SET_MISC: {
       if (record->event.pressed) {
-        unregister_code(KC_LSFT);
         layer_on(MISC);
+        unregister_code(KC_LSFT);
       } else {
         layer_off(MISC);
       }
@@ -311,18 +310,18 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
     }
     case SET_NUMBERS: {
       if (record->event.pressed) {
-        unregister_code(KC_LSFT);
         layer_on(NUMBERS);
-      } else {
-        layer_off(NUMBERS);
         unregister_code(KC_LSFT);
+      } else {
+        unregister_code(KC_LSFT);
+        layer_off(NUMBERS);
       }
       break;
     }
     case SET_DEVELOPMENT: {
       if (record->event.pressed) {
-        unregister_code(KC_LSFT);
         layer_on(DEVELOPMENT);
+        unregister_code(KC_LSFT);
       } else {
         layer_off(DEVELOPMENT);
       }
@@ -338,28 +337,28 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
     }
     case SET_LEFT_MODS: {
       if (record->event.pressed) {
+        layer_on(LEFT_MODS);
         unregister_code(KC_LSFT);
         register_code(KC_LCTL);
-        layer_on(LEFT_MODS);
       } else {
-        layer_off(LEFT_MODS);
         clear_mods();
+        layer_off(LEFT_MODS);
       }
       break;
     }
     case SPC__RIGHT_MODS: {
       if (record->event.pressed) {
         key_timer = timer_read();
+        layer_on(RIGHT_MODS);
         unregister_code(KC_RSFT);
         register_code(KC_LCTL);
-        layer_on(RIGHT_MODS);
       } else {
-        layer_off(RIGHT_MODS);
         clear_mods();
         if (timer_elapsed(key_timer) < NORMAL) {
           register_code(KC_SPC);
           unregister_code(KC_SPC);
         }
+        layer_off(RIGHT_MODS);
       }
       break;
     }
