@@ -8,6 +8,7 @@
 
 enum layers {
   COLEMAK,
+  NOUNREGISTER,
   CAPSLOCK,
   LEFT_LAYERS,
   RIGHT_LAYERS,
@@ -55,7 +56,7 @@ enum macros {
   SET_DEVELOPMENT,
   SET_FUNCTION,
   SET_LEFT_MODS,
-  SPC__RIGHT_MODS,
+  SET_RIGHT_MODS,
   SFT__SPC,
   SPC__BROWSER,
   VOLDOWN__GUI_LEFT,
@@ -88,7 +89,8 @@ enum macros {
   _H,
   _K,
   _M,
-  _J
+  _J,
+  END_SFT_HOME_DEL
 };
 
 #define _______ KC_TRNS
@@ -97,10 +99,17 @@ static uint16_t key_timer;
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [COLEMAK] = KEYMAP( \
-    M(SPC__BROWSER), M(_G), M(_D), M(_B), M(RALT_SCLN), _______, _______, _______, M(_COMM), M(SFT__RIGHT_LAYERS), M(_DOT), _______, \
+    M(SPC__BROWSER), M(_G), M(_D), M(_B), M(RALT_SCLN), RESET, M(LOGIN), _______, M(_COMM), M(SFT__RIGHT_LAYERS), M(_DOT), TG(NUMBERS), \
     M(_Q), M(_W), M(_F), M(_P), M(RALT_W), _______, _______, _______, M(_L), M(_U), M(_Y), M(_SCLN), \
-    M(_A), M(_R), M(_S), M(_T), M(RALT_Q), RESET, M(LOGIN), _______, M(_N), M(_E), M(_I), M(_O), \
-    M(_Z), M(_X), M(_C), M(_V), M(SFT__LEFT_LAYERS), TG(CAPSLOCK), TG(NUMBERS), KC_SPC, M(_H), M(_K), M(_M), M(_J) \
+    M(_A), M(_R), M(_S), M(_T), M(RALT_Q), _______, _______, _______, M(_N), M(_E), M(_I), M(_O), \
+    M(_Z), M(_X), M(_C), M(_V), M(SFT__LEFT_LAYERS), TG(CAPSLOCK), M(END_SFT_HOME_DEL), KC_SPC, M(_H), M(_K), M(_M), M(_J) \
+  ),
+
+  [NOUNREGISTER] = KEYMAP( \
+    _______, CM_G, CM_D, CM_B, M(RALT_SCLN), _______, _______, _______, CM_COMM, _______, CM_DOT, _______, \
+    CM_Q, CM_W, CM_F, CM_P, M(RALT_W), _______, _______, _______, CM_L, CM_U, CM_Y, _______, \
+    CM_A, CM_R, CM_S, CM_T, M(RALT_Q), _______, _______, _______, CM_N, CM_E, CM_I, CM_O, \
+    CM_Z, CM_X, CM_C, CM_V, _______, _______, _______, _______, CM_H, CM_K, CM_M, CM_J \
   ),
 
   [CAPSLOCK] = KEYMAP( \
@@ -128,14 +137,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, _______, _______, _______, _______, _______, _______, _______, M(_SLSH), _______, M(_EQL), _______, \
     _______, _______, _______, _______, _______, _______, _______, _______, M(_QUOT), _______, _______, _______, \
     _______, _______, _______, _______, _______, _______, _______, _______, M(_MINS), _______, _______, _______, \
-    _______, _______, _______, _______, _______, _______, _______, M(SPC__RIGHT_MODS), _______, _______, _______, _______ \
+    _______, _______, _______, _______, _______, _______, _______, M(SET_RIGHT_MODS), _______, _______, _______, _______ \
   ),
 
   [RIGHT_MODS] = KEYMAP( \
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
     _______, _______, _______, _______, _______, _______, _______, _______, M(_LCTL), M(_RALT), M(_RSFT), M(_LALT), \
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
-    _______, _______, _______, _______, _______, _______, _______, M(SPC__RIGHT_MODS), _______, _______, _______, _______ \
+    _______, _______, _______, _______, _______, _______, _______, M(SET_RIGHT_MODS), _______, _______, _______, _______ \
   ),
 
   [MISC] = KEYMAP( \
@@ -149,14 +158,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, _______, _______, _______, _______, _______, _______, _______, KC_7, KC_8, KC_9, _______, \
     _______, _______, KC_LEFT, M(ALT_TAB), _______, _______, _______, _______, KC_4, KC_5, KC_6, _______, \
     _______, M(VOLDOWN__GUI_LEFT), KC__MUTE, M(VOLUP__GUI_RIGHT), _______, _______, _______, _______, KC_1, KC_2, KC_3, KC_BSPC, \
-    M(SET_NUMBERS), LCTL(CM_Z), LCTL(S(CM_Z)), KC_LSFT, _______, _______, _______, M(SET_FUNCTION), KC_0, KC_DOT, _______, KC_ENT \
+    M(SET_NUMBERS), LCTL(CM_Z), LCTL(S(CM_Z)), KC_LSFT, _______, _______, M(SET_FUNCTION), _______, KC_0, KC_DOT, _______, KC_ENT \
   ),
 
   [FUNCTION] = KEYMAP( \
     _______, _______, _______, _______, _______, _______, _______, _______, KC_F10, KC_F11, KC_F12, _______, \
     _______, _______, _______, _______, _______, _______, _______, _______, KC_F7, KC_F8, KC_F9, _______, \
     _______, _______, _______, _______, _______, _______, _______, _______, KC_F4, KC_F5, KC_F6, _______, \
-    _______, _______, _______, _______, _______, _______, _______, M(SET_FUNCTION), KC_F1, KC_F2, KC_F3, _______ \
+    _______, _______, _______, _______, _______, _______, M(SET_FUNCTION), _______, KC_F1, KC_F2, KC_F3, _______ \
   ),
 
   [DEVELOPMENT] = KEYMAP( \
@@ -183,7 +192,8 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
         register_code(KC_RALT);
         register_code(CM_SCLN);
         unregister_code(CM_SCLN);
-        clear_mods();
+        unregister_code(KC_RALT);
+        unregister_code(CM_SCLN);
       }
       break;
     }
@@ -192,7 +202,8 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
         register_code(KC_RALT);
         register_code(CM_Q);
         unregister_code(CM_Q);
-        clear_mods();
+        unregister_code(KC_RALT);
+        unregister_code(CM_Q);
       }
       break;
     }
@@ -201,7 +212,8 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
         register_code(KC_RALT);
         register_code(CM_W);
         unregister_code(CM_W);
-        clear_mods();
+        unregister_code(KC_RALT);
+        unregister_code(CM_W);
       }
       break;
     }
@@ -211,7 +223,8 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
         register_code(KC_RALT);
         register_code(CM_SCLN);
         unregister_code(CM_SCLN);
-        clear_mods();
+        unregister_code(KC_LSFT);
+        unregister_code(KC_RALT);
       }
       break;
     }
@@ -221,7 +234,8 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
         register_code(KC_RALT);
         register_code(CM_Q);
         unregister_code(CM_Q);
-        clear_mods();
+        unregister_code(KC_LSFT);
+        unregister_code(KC_RALT);
       }
       break;
     }
@@ -231,7 +245,8 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
         register_code(KC_RALT);
         register_code(CM_W);
         unregister_code(CM_W);
-        clear_mods();
+        unregister_code(KC_LSFT);
+        unregister_code(KC_RALT);
       }
       break;
     }
@@ -301,8 +316,8 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
     }
     case SET_MISC: {
       if (record->event.pressed) {
-        layer_on(MISC);
         unregister_code(KC_LSFT);
+        layer_on(MISC);
       } else {
         layer_off(MISC);
       }
@@ -310,18 +325,17 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
     }
     case SET_NUMBERS: {
       if (record->event.pressed) {
+        unregister_code(KC_LSFT);
         layer_on(NUMBERS);
-        unregister_code(KC_LSFT);
       } else {
-        unregister_code(KC_LSFT);
         layer_off(NUMBERS);
       }
       break;
     }
     case SET_DEVELOPMENT: {
       if (record->event.pressed) {
-        layer_on(DEVELOPMENT);
         unregister_code(KC_LSFT);
+        layer_on(DEVELOPMENT);
       } else {
         layer_off(DEVELOPMENT);
       }
@@ -337,28 +351,28 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
     }
     case SET_LEFT_MODS: {
       if (record->event.pressed) {
-        layer_on(LEFT_MODS);
         unregister_code(KC_LSFT);
+        layer_on(NOUNREGISTER);
+        layer_on(LEFT_MODS);
         register_code(KC_LCTL);
       } else {
         clear_mods();
         layer_off(LEFT_MODS);
+        layer_off(NOUNREGISTER);
       }
       break;
     }
-    case SPC__RIGHT_MODS: {
+    case SET_RIGHT_MODS: {
       if (record->event.pressed) {
         key_timer = timer_read();
-        layer_on(RIGHT_MODS);
         unregister_code(KC_RSFT);
+        layer_on(NOUNREGISTER);
+        layer_on(RIGHT_MODS);
         register_code(KC_LCTL);
       } else {
         clear_mods();
-        if (timer_elapsed(key_timer) < NORMAL) {
-          register_code(KC_SPC);
-          unregister_code(KC_SPC);
-        }
         layer_off(RIGHT_MODS);
+        layer_off(NOUNREGISTER);
       }
       break;
     }
@@ -614,261 +628,274 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
     case _G: {
       if (record->event.pressed) {
         register_code(CM_G);
-        clear_mods();
-      } else {
         unregister_code(CM_G);
+        unregister_code(KC_LSFT);
+        unregister_code(KC_RSFT);
       }
       break;
     }
     case _D: {
       if (record->event.pressed) {
         register_code(CM_D);
-        clear_mods();
-      } else {
         unregister_code(CM_D);
+        unregister_code(KC_LSFT);
+        unregister_code(KC_RSFT);
       }
       break;
     }
     case _B: {
       if (record->event.pressed) {
         register_code(CM_B);
-        clear_mods();
-      } else {
         unregister_code(CM_B);
+        unregister_code(KC_LSFT);
+        unregister_code(KC_RSFT);
       }
       break;
     }
     case _Q: {
       if (record->event.pressed) {
         register_code(CM_Q);
-        clear_mods();
-      } else {
         unregister_code(CM_Q);
+        unregister_code(KC_LSFT);
+        unregister_code(KC_RSFT);
       }
       break;
     }
     case _W: {
       if (record->event.pressed) {
         register_code(CM_W);
-        clear_mods();
-      } else {
         unregister_code(CM_W);
+        unregister_code(KC_LSFT);
+        unregister_code(KC_RSFT);
       }
       break;
     }
     case _F: {
       if (record->event.pressed) {
         register_code(CM_F);
-        clear_mods();
-      } else {
         unregister_code(CM_F);
+        unregister_code(KC_LSFT);
+        unregister_code(KC_RSFT);
       }
       break;
     }
     case _P: {
       if (record->event.pressed) {
         register_code(CM_P);
-        clear_mods();
-      } else {
         unregister_code(CM_P);
+        unregister_code(KC_LSFT);
+        unregister_code(KC_RSFT);
       }
       break;
     }
     case _A: {
       if (record->event.pressed) {
         register_code(CM_A);
-        clear_mods();
-      } else {
         unregister_code(CM_A);
+        unregister_code(KC_LSFT);
+        unregister_code(KC_RSFT);
       }
       break;
     }
     case _R: {
       if (record->event.pressed) {
         register_code(CM_R);
-        clear_mods();
-      } else {
         unregister_code(CM_R);
+        unregister_code(KC_LSFT);
+        unregister_code(KC_RSFT);
       }
       break;
     }
     case _S: {
       if (record->event.pressed) {
         register_code(CM_S);
-        clear_mods();
-      } else {
         unregister_code(CM_S);
+        unregister_code(KC_LSFT);
+        unregister_code(KC_RSFT);
       }
       break;
     }
     case _T: {
       if (record->event.pressed) {
         register_code(CM_T);
-        clear_mods();
-      } else {
         unregister_code(CM_T);
+        unregister_code(KC_LSFT);
+        unregister_code(KC_RSFT);
       }
       break;
     }
     case _Z: {
       if (record->event.pressed) {
         register_code(CM_Z);
-        clear_mods();
-      } else {
         unregister_code(CM_Z);
+        unregister_code(KC_LSFT);
+        unregister_code(KC_RSFT);
       }
       break;
     }
     case _X: {
       if (record->event.pressed) {
         register_code(CM_X);
-        clear_mods();
-      } else {
         unregister_code(CM_X);
+        unregister_code(KC_LSFT);
+        unregister_code(KC_RSFT);
       }
       break;
     }
     case _C: {
       if (record->event.pressed) {
         register_code(CM_C);
-        clear_mods();
-      } else {
         unregister_code(CM_C);
+        unregister_code(KC_LSFT);
+        unregister_code(KC_RSFT);
       }
       break;
     }
     case _V: {
       if (record->event.pressed) {
         register_code(CM_V);
-        clear_mods();
-      } else {
         unregister_code(CM_V);
+        unregister_code(KC_LSFT);
+        unregister_code(KC_RSFT);
       }
       break;
     }
     case _COMM: {
       if (record->event.pressed) {
         register_code(CM_COMM);
-        clear_mods();
-      } else {
         unregister_code(CM_COMM);
+        unregister_code(KC_LSFT);
+        unregister_code(KC_RSFT);
       }
       break;
     }
     case _DOT: {
       if (record->event.pressed) {
         register_code(CM_DOT);
-        clear_mods();
-      } else {
         unregister_code(CM_DOT);
+        unregister_code(KC_LSFT);
+        unregister_code(KC_RSFT);
       }
       break;
     }
     case _L: {
       if (record->event.pressed) {
         register_code(CM_L);
-        clear_mods();
-      } else {
         unregister_code(CM_L);
+        unregister_code(KC_LSFT);
+        unregister_code(KC_RSFT);
       }
       break;
     }
     case _U: {
       if (record->event.pressed) {
         register_code(CM_U);
-        clear_mods();
-      } else {
         unregister_code(CM_U);
+        unregister_code(KC_LSFT);
+        unregister_code(KC_RSFT);
       }
       break;
     }
     case _Y: {
       if (record->event.pressed) {
         register_code(CM_Y);
-        clear_mods();
-      } else {
         unregister_code(CM_Y);
+        unregister_code(KC_LSFT);
+        unregister_code(KC_RSFT);
       }
       break;
     }
     case _SCLN: {
       if (record->event.pressed) {
         register_code(CM_SCLN);
-        clear_mods();
-      } else {
         unregister_code(CM_SCLN);
+        unregister_code(KC_LSFT);
+        unregister_code(KC_RSFT);
       }
       break;
     }
     case _N: {
       if (record->event.pressed) {
         register_code(CM_N);
-        clear_mods();
-      } else {
         unregister_code(CM_N);
+        unregister_code(KC_LSFT);
+        unregister_code(KC_RSFT);
       }
       break;
     }
     case _E: {
       if (record->event.pressed) {
         register_code(CM_E);
-        clear_mods();
-      } else {
         unregister_code(CM_E);
+        unregister_code(KC_LSFT);
+        unregister_code(KC_RSFT);
       }
       break;
     }
     case _I: {
       if (record->event.pressed) {
         register_code(CM_I);
-        clear_mods();
-      } else {
         unregister_code(CM_I);
+        unregister_code(KC_LSFT);
+        unregister_code(KC_RSFT);
       }
       break;
     }
     case _O: {
       if (record->event.pressed) {
         register_code(CM_O);
-        clear_mods();
-      } else {
         unregister_code(CM_O);
+        unregister_code(KC_LSFT);
+        unregister_code(KC_RSFT);
       }
       break;
     }
     case _H: {
       if (record->event.pressed) {
         register_code(CM_H);
-        clear_mods();
-      } else {
         unregister_code(CM_H);
+        unregister_code(KC_LSFT);
+        unregister_code(KC_RSFT);
       }
       break;
     }
     case _K: {
       if (record->event.pressed) {
         register_code(CM_K);
-        clear_mods();
-      } else {
         unregister_code(CM_K);
+        unregister_code(KC_LSFT);
+        unregister_code(KC_RSFT);
       }
       break;
     }
     case _M: {
       if (record->event.pressed) {
         register_code(CM_M);
-        clear_mods();
-      } else {
         unregister_code(CM_M);
+        unregister_code(KC_LSFT);
+        unregister_code(KC_RSFT);
       }
       break;
     }
     case _J: {
       if (record->event.pressed) {
         register_code(CM_J);
-        clear_mods();
-      } else {
         unregister_code(CM_J);
+        unregister_code(KC_LSFT);
+        unregister_code(KC_RSFT);
+      }
+      break;
+    }
+    case END_SFT_HOME_DEL: {
+      if (record->event.pressed) {
+        register_code(KC_END);
+        unregister_code(KC_END);
+        register_code(KC_LSFT);
+        register_code(KC_HOME);
+        unregister_code(KC_HOME);
+        unregister_code(KC_LSFT);
+        register_code(KC_DEL);
+        unregister_code(KC_DEL);
       }
       break;
     }
