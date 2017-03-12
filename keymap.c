@@ -12,10 +12,9 @@ enum layers {
   CAPSLOCK,
   LEFT_LAYERS,
   RIGHT_LAYERS,
-  MISC,
+  FUNCTION,
   NUMBERS,
   DEVELOPMENT,
-  FUNCTION,
   LEFT_MODS,
   RIGHT_MODS,
   BROWSER
@@ -51,12 +50,11 @@ enum macros {
   RALT_SFT_W,
   SFT__LEFT_LAYERS,
   SFT__RIGHT_LAYERS,
-  SET_MISC,
+  SET_FUNCTION,
   SET_NUMBERS,
   SET_DEVELOPMENT,
-  SET_FUNCTION,
-  SET_LEFT_MODS,
-  SET_RIGHT_MODS,
+  CTL__LEFT_MODS,
+  CTL__RIGHT_MODS,
   SFT__SPC,
   SPC__BROWSER,
   VOLDOWN__GUI_LEFT,
@@ -113,21 +111,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [CAPSLOCK] = KEYMAP( \
-    _______, S(CM_G), S(CM_D), S(CM_B), M(RALT_SFT_SCLN), _______, _______, _______, _______, _______, _______, _______, \
+    _______, S(CM_G), S(CM_D), S(CM_B), M(RALT_SFT_SCLN), _______, _______, _______, S(CM_COMM), _______, S(CM_DOT), _______, \
     S(CM_Q), S(CM_W), S(CM_F), S(CM_P), M(RALT_SFT_W), _______, _______, _______, S(CM_L), S(CM_U), S(CM_Y), _______, \
     S(CM_A), S(CM_R), S(CM_S), S(CM_T), M(RALT_SFT_Q), _______, _______, _______, S(CM_N), S(CM_E), S(CM_I), S(CM_O), \
     S(CM_Z), S(CM_X), S(CM_C), S(CM_V), _______, _______, _______, _______, S(CM_H), S(CM_K), S(CM_M), S(CM_J) \
   ),
 
   [LEFT_LAYERS] = KEYMAP( \
-    _______, M(ENT__T__N), M(SET_LEFT_MODS), M(ESC__D__ALT_F3), _______, _______, _______, _______, _______, _______, _______, _______, \
+    _______, M(ENT__T__N), M(CTL__LEFT_MODS), M(ESC__D__ALT_F3), _______, _______, _______, _______, _______, _______, _______, _______, \
     _______, M(HOME__W), M(_UP), M(END__S__R), _______, _______, _______, _______, _______, _______, _______, _______, \
-    M(SET_MISC), M(_LEFT), M(_DOWN), M(_RIGHT), _______, _______, _______, _______, _______, _______, _______, _______, \
+    M(SET_FUNCTION), M(_LEFT), M(_DOWN), M(_RIGHT), _______, _______, _______, _______, _______, _______, _______, _______, \
     M(SET_NUMBERS), M(SET_DEVELOPMENT), _______, M(_BSPC), _______, _______, _______, _______, _______, _______, _______, _______ \
   ),
 
   [LEFT_MODS] = KEYMAP( \
-    _______, _______, M(SET_LEFT_MODS), _______, _______, _______, _______, _______, _______, _______, _______, _______, \
+    _______, _______, M(CTL__LEFT_MODS), _______, _______, _______, _______, _______, _______, _______, _______, _______, \
     _______, M(_LSFT), _______, M(_LCTL), _______, _______, _______, _______, _______, _______, _______, _______, \
     M(_LALT), _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
     _______, _______, _______, _______, _______, M(_RALT), _______, _______, _______, _______, _______, _______ \
@@ -137,39 +135,32 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, _______, _______, _______, _______, _______, _______, _______, M(_SLSH), _______, M(_EQL), _______, \
     _______, _______, _______, _______, _______, _______, _______, _______, M(_QUOT), _______, _______, _______, \
     _______, _______, _______, _______, _______, _______, _______, _______, M(_MINS), _______, _______, _______, \
-    _______, _______, _______, _______, _______, _______, _______, M(SET_RIGHT_MODS), _______, _______, _______, _______ \
+    _______, _______, _______, _______, _______, _______, _______, M(CTL__RIGHT_MODS), _______, _______, _______, _______ \
   ),
 
   [RIGHT_MODS] = KEYMAP( \
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
     _______, _______, _______, _______, _______, _______, _______, _______, M(_LCTL), M(_RALT), M(_RSFT), M(_LALT), \
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
-    _______, _______, _______, _______, _______, _______, _______, M(SET_RIGHT_MODS), _______, _______, _______, _______ \
+    _______, _______, _______, _______, _______, _______, _______, M(CTL__RIGHT_MODS), _______, _______, _______, _______ \
   ),
 
-  [MISC] = KEYMAP( \
-    _______, _______, KC_TAB, KC_DEL, _______, _______, _______, _______, _______, _______, _______, _______, \
-    _______, LCTL(KC_PGUP), LCTL(KC_UP), LCTL(KC_PGDOWN), _______, _______, _______, _______, _______, _______, _______, _______, \
-    M(SET_MISC), LCTL(KC_LEFT), LCTL(KC_DOWN), LCTL(KC_RIGHT), _______, _______, _______, _______, _______, _______, _______, _______, \
-    _______, _______, _______, KC_BTN3, _______, _______, _______, _______, _______, _______, _______, _______ \
+  [FUNCTION] = KEYMAP( \
+    _______, _______, KC_TAB, KC_DEL, _______, _______, _______, _______, KC_F10, KC_F11, KC_F12, _______, \
+    _______, LCTL(KC_PGUP), LCTL(KC_UP), LCTL(KC_PGDOWN), _______, _______, _______, _______, KC_F7, KC_F8, KC_F9, _______, \
+    M(SET_FUNCTION), LCTL(KC_LEFT), LCTL(KC_DOWN), LCTL(KC_RIGHT), _______, _______, _______, _______, KC_F4, KC_F5, KC_F6, _______, \
+    _______, _______, _______, KC_BTN3, _______, _______, _______, _______, KC_F1, KC_F2, KC_F3, _______ \
   ),
 
   [NUMBERS] = KEYMAP( \
     _______, _______, _______, _______, _______, _______, _______, _______, KC_7, KC_8, KC_9, _______, \
     _______, _______, KC_LEFT, M(ALT_TAB), _______, _______, _______, _______, KC_4, KC_5, KC_6, _______, \
     _______, M(VOLDOWN__GUI_LEFT), KC__MUTE, M(VOLUP__GUI_RIGHT), _______, _______, _______, _______, KC_1, KC_2, KC_3, KC_BSPC, \
-    M(SET_NUMBERS), LCTL(CM_Z), LCTL(S(CM_Z)), KC_LSFT, _______, _______, M(SET_FUNCTION), _______, KC_0, KC_DOT, _______, KC_ENT \
-  ),
-
-  [FUNCTION] = KEYMAP( \
-    _______, _______, _______, _______, _______, _______, _______, _______, KC_F10, KC_F11, KC_F12, _______, \
-    _______, _______, _______, _______, _______, _______, _______, _______, KC_F7, KC_F8, KC_F9, _______, \
-    _______, _______, _______, _______, _______, _______, _______, _______, KC_F4, KC_F5, KC_F6, _______, \
-    _______, _______, _______, _______, _______, _______, M(SET_FUNCTION), _______, KC_F1, KC_F2, KC_F3, _______ \
+    M(SET_NUMBERS), LCTL(CM_Z), LCTL(S(CM_Z)), KC_LSFT, _______, _______, _______, _______, KC_0, KC_DOT, _______, KC_ENT \
   ),
 
   [DEVELOPMENT] = KEYMAP( \
-    _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_GRV, _______, _______, \
+    _______, _______, _______, _______, _______, _______, _______, _______, KC_PGUP, KC_GRV, KC_PGDOWN, _______, \
     _______, _______, _______, _______, _______, _______, _______, _______, KC_LPRN, KC_RPRN, S(KC_1), _______, \
     _______, _______, LCTL(CM_C), LCTL(CM_V), _______, _______, _______, _______, S(KC_LBRC), S(KC_RBRC), S(KC_BSLS), _______, \
     _______, M(SET_DEVELOPMENT), LCTL(CM_X), LCTL(KC_BSPC), _______, _______, _______, _______, KC_LBRC, KC_RBRC, KC_BSLS, _______ \
@@ -314,12 +305,12 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
       }
       break;
     }
-    case SET_MISC: {
+    case SET_FUNCTION: {
       if (record->event.pressed) {
         unregister_code(KC_LSFT);
-        layer_on(MISC);
+        layer_on(FUNCTION);
       } else {
-        layer_off(MISC);
+        layer_off(FUNCTION);
       }
       break;
     }
@@ -341,15 +332,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
       }
       break;
     }
-    case SET_FUNCTION: {
-      if (record->event.pressed) {
-        layer_on(FUNCTION);
-      } else {
-        layer_off(FUNCTION);
-      }
-      break;
-    }
-    case SET_LEFT_MODS: {
+    case CTL__LEFT_MODS: {
       if (record->event.pressed) {
         unregister_code(KC_LSFT);
         layer_on(NOUNREGISTER);
@@ -362,7 +345,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
       }
       break;
     }
-    case SET_RIGHT_MODS: {
+    case CTL__RIGHT_MODS: {
       if (record->event.pressed) {
         key_timer = timer_read();
         unregister_code(KC_RSFT);
