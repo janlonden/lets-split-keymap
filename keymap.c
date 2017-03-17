@@ -8,7 +8,6 @@
 
 enum layers {
   COLEMAK,
-  NOUNREGISTER,
   CAPSLOCK,
   LEFT_LAYERS,
   RIGHT_LAYERS,
@@ -59,35 +58,6 @@ enum macros {
   SPC__BROWSER,
   VOLDOWN__GUI_LEFT,
   VOLUP__GUI_RIGHT,
-  _G,
-  _D,
-  _B,
-  _Q,
-  _W,
-  _F,
-  _P,
-  _A,
-  _R,
-  _S,
-  _T,
-  _Z,
-  _X,
-  _C,
-  _V,
-  _COMM,
-  _DOT,
-  _L,
-  _U,
-  _Y,
-  _SCLN,
-  _N,
-  _E,
-  _I,
-  _O,
-  _H,
-  _K,
-  _M,
-  _J,
   END_SFT_HOME_DEL
 };
 
@@ -97,21 +67,14 @@ static uint16_t key_timer;
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [COLEMAK] = KEYMAP( \
-    M(SPC__BROWSER), M(_G), M(_D), M(_B), M(RALT_SCLN), RESET, M(LOGIN), _______, M(_COMM), M(SFT__RIGHT_LAYERS), M(_DOT), TG(NUMBERS), \
-    M(_Q), M(_W), M(_F), M(_P), M(RALT_W), _______, _______, _______, M(_L), M(_U), M(_Y), M(_SCLN), \
-    M(_A), M(_R), M(_S), M(_T), M(RALT_Q), _______, _______, _______, M(_N), M(_E), M(_I), M(_O), \
-    M(_Z), M(_X), M(_C), M(_V), M(SFT__LEFT_LAYERS), TG(CAPSLOCK), M(END_SFT_HOME_DEL), KC_SPC, M(_H), M(_K), M(_M), M(_J) \
-  ),
-
-  [NOUNREGISTER] = KEYMAP( \
-    _______, CM_G, CM_D, CM_B, M(RALT_SCLN), _______, _______, _______, CM_COMM, _______, CM_DOT, _______, \
-    CM_Q, CM_W, CM_F, CM_P, M(RALT_W), _______, _______, _______, CM_L, CM_U, CM_Y, _______, \
+    M(SPC__BROWSER), CM_G, CM_D, CM_B, M(RALT_SCLN), RESET, M(LOGIN), _______, CM_COMM, M(SFT__RIGHT_LAYERS), CM_DOT, TG(NUMBERS), \
+    CM_Q, CM_W, CM_F, CM_P, M(RALT_W), _______, _______, _______, CM_L, CM_U, CM_Y, CM_SCLN, \
     CM_A, CM_R, CM_S, CM_T, M(RALT_Q), _______, _______, _______, CM_N, CM_E, CM_I, CM_O, \
-    CM_Z, CM_X, CM_C, CM_V, _______, _______, _______, _______, CM_H, CM_K, CM_M, CM_J \
+    CM_Z, CM_X, CM_C, CM_V, M(SFT__LEFT_LAYERS), TG(CAPSLOCK), M(END_SFT_HOME_DEL), KC_SPC, CM_H, CM_K, CM_M, CM_J \
   ),
 
   [CAPSLOCK] = KEYMAP( \
-    _______, S(CM_G), S(CM_D), S(CM_B), M(RALT_SFT_SCLN), _______, _______, _______, S(CM_COMM), _______, S(CM_DOT), _______, \
+    _______, S(CM_G), S(CM_D), S(CM_B), M(RALT_SFT_SCLN), _______, _______, _______, _______, _______, _______, _______, \
     S(CM_Q), S(CM_W), S(CM_F), S(CM_P), M(RALT_SFT_W), _______, _______, _______, S(CM_L), S(CM_U), S(CM_Y), _______, \
     S(CM_A), S(CM_R), S(CM_S), S(CM_T), M(RALT_SFT_Q), _______, _______, _______, S(CM_N), S(CM_E), S(CM_I), S(CM_O), \
     S(CM_Z), S(CM_X), S(CM_C), S(CM_V), _______, _______, _______, _______, S(CM_H), S(CM_K), S(CM_M), S(CM_J) \
@@ -284,9 +247,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
         layer_on(LEFT_LAYERS);
         register_code(KC_LSFT);
       } else {
-        if (timer_elapsed(key_timer) > NORMAL) {
-          unregister_code(KC_LSFT);
-        }
+        unregister_code(KC_LSFT);
         layer_off(LEFT_LAYERS);
       }
       break;
@@ -297,10 +258,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
         layer_on(RIGHT_LAYERS);
         register_code(KC_RSFT);
       } else {
-        unregister_code(KC_LSFT);
-        if (timer_elapsed(key_timer) > NORMAL) {
-          unregister_code(KC_RSFT);
-        }
+        unregister_code(KC_RSFT);
         layer_off(RIGHT_LAYERS);
       }
       break;
@@ -334,28 +292,22 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
     }
     case CTL__LEFT_MODS: {
       if (record->event.pressed) {
-        unregister_code(KC_LSFT);
-        layer_on(NOUNREGISTER);
         layer_on(LEFT_MODS);
         register_code(KC_LCTL);
       } else {
-        clear_mods();
+        unregister_code(KC_LCTL);
         layer_off(LEFT_MODS);
-        layer_off(NOUNREGISTER);
       }
       break;
     }
     case CTL__RIGHT_MODS: {
       if (record->event.pressed) {
         key_timer = timer_read();
-        unregister_code(KC_RSFT);
-        layer_on(NOUNREGISTER);
         layer_on(RIGHT_MODS);
         register_code(KC_LCTL);
       } else {
-        clear_mods();
+        unregister_code(KC_LCTL);
         layer_off(RIGHT_MODS);
-        layer_off(NOUNREGISTER);
       }
       break;
     }
@@ -605,267 +557,6 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
           unregister_code(KC_SPC);
         }
         layer_off(BROWSER);
-      }
-      break;
-    }
-    case _G: {
-      if (record->event.pressed) {
-        register_code(CM_G);
-        unregister_code(CM_G);
-        unregister_code(KC_LSFT);
-        unregister_code(KC_RSFT);
-      }
-      break;
-    }
-    case _D: {
-      if (record->event.pressed) {
-        register_code(CM_D);
-        unregister_code(CM_D);
-        unregister_code(KC_LSFT);
-        unregister_code(KC_RSFT);
-      }
-      break;
-    }
-    case _B: {
-      if (record->event.pressed) {
-        register_code(CM_B);
-        unregister_code(CM_B);
-        unregister_code(KC_LSFT);
-        unregister_code(KC_RSFT);
-      }
-      break;
-    }
-    case _Q: {
-      if (record->event.pressed) {
-        register_code(CM_Q);
-        unregister_code(CM_Q);
-        unregister_code(KC_LSFT);
-        unregister_code(KC_RSFT);
-      }
-      break;
-    }
-    case _W: {
-      if (record->event.pressed) {
-        register_code(CM_W);
-        unregister_code(CM_W);
-        unregister_code(KC_LSFT);
-        unregister_code(KC_RSFT);
-      }
-      break;
-    }
-    case _F: {
-      if (record->event.pressed) {
-        register_code(CM_F);
-        unregister_code(CM_F);
-        unregister_code(KC_LSFT);
-        unregister_code(KC_RSFT);
-      }
-      break;
-    }
-    case _P: {
-      if (record->event.pressed) {
-        register_code(CM_P);
-        unregister_code(CM_P);
-        unregister_code(KC_LSFT);
-        unregister_code(KC_RSFT);
-      }
-      break;
-    }
-    case _A: {
-      if (record->event.pressed) {
-        register_code(CM_A);
-        unregister_code(CM_A);
-        unregister_code(KC_LSFT);
-        unregister_code(KC_RSFT);
-      }
-      break;
-    }
-    case _R: {
-      if (record->event.pressed) {
-        register_code(CM_R);
-        unregister_code(CM_R);
-        unregister_code(KC_LSFT);
-        unregister_code(KC_RSFT);
-      }
-      break;
-    }
-    case _S: {
-      if (record->event.pressed) {
-        register_code(CM_S);
-        unregister_code(CM_S);
-        unregister_code(KC_LSFT);
-        unregister_code(KC_RSFT);
-      }
-      break;
-    }
-    case _T: {
-      if (record->event.pressed) {
-        register_code(CM_T);
-        unregister_code(CM_T);
-        unregister_code(KC_LSFT);
-        unregister_code(KC_RSFT);
-      }
-      break;
-    }
-    case _Z: {
-      if (record->event.pressed) {
-        register_code(CM_Z);
-        unregister_code(CM_Z);
-        unregister_code(KC_LSFT);
-        unregister_code(KC_RSFT);
-      }
-      break;
-    }
-    case _X: {
-      if (record->event.pressed) {
-        register_code(CM_X);
-        unregister_code(CM_X);
-        unregister_code(KC_LSFT);
-        unregister_code(KC_RSFT);
-      }
-      break;
-    }
-    case _C: {
-      if (record->event.pressed) {
-        register_code(CM_C);
-        unregister_code(CM_C);
-        unregister_code(KC_LSFT);
-        unregister_code(KC_RSFT);
-      }
-      break;
-    }
-    case _V: {
-      if (record->event.pressed) {
-        register_code(CM_V);
-        unregister_code(CM_V);
-        unregister_code(KC_LSFT);
-        unregister_code(KC_RSFT);
-      }
-      break;
-    }
-    case _COMM: {
-      if (record->event.pressed) {
-        register_code(CM_COMM);
-        unregister_code(CM_COMM);
-        unregister_code(KC_LSFT);
-        unregister_code(KC_RSFT);
-      }
-      break;
-    }
-    case _DOT: {
-      if (record->event.pressed) {
-        register_code(CM_DOT);
-        unregister_code(CM_DOT);
-        unregister_code(KC_LSFT);
-        unregister_code(KC_RSFT);
-      }
-      break;
-    }
-    case _L: {
-      if (record->event.pressed) {
-        register_code(CM_L);
-        unregister_code(CM_L);
-        unregister_code(KC_LSFT);
-        unregister_code(KC_RSFT);
-      }
-      break;
-    }
-    case _U: {
-      if (record->event.pressed) {
-        register_code(CM_U);
-        unregister_code(CM_U);
-        unregister_code(KC_LSFT);
-        unregister_code(KC_RSFT);
-      }
-      break;
-    }
-    case _Y: {
-      if (record->event.pressed) {
-        register_code(CM_Y);
-        unregister_code(CM_Y);
-        unregister_code(KC_LSFT);
-        unregister_code(KC_RSFT);
-      }
-      break;
-    }
-    case _SCLN: {
-      if (record->event.pressed) {
-        register_code(CM_SCLN);
-        unregister_code(CM_SCLN);
-        unregister_code(KC_LSFT);
-        unregister_code(KC_RSFT);
-      }
-      break;
-    }
-    case _N: {
-      if (record->event.pressed) {
-        register_code(CM_N);
-        unregister_code(CM_N);
-        unregister_code(KC_LSFT);
-        unregister_code(KC_RSFT);
-      }
-      break;
-    }
-    case _E: {
-      if (record->event.pressed) {
-        register_code(CM_E);
-        unregister_code(CM_E);
-        unregister_code(KC_LSFT);
-        unregister_code(KC_RSFT);
-      }
-      break;
-    }
-    case _I: {
-      if (record->event.pressed) {
-        register_code(CM_I);
-        unregister_code(CM_I);
-        unregister_code(KC_LSFT);
-        unregister_code(KC_RSFT);
-      }
-      break;
-    }
-    case _O: {
-      if (record->event.pressed) {
-        register_code(CM_O);
-        unregister_code(CM_O);
-        unregister_code(KC_LSFT);
-        unregister_code(KC_RSFT);
-      }
-      break;
-    }
-    case _H: {
-      if (record->event.pressed) {
-        register_code(CM_H);
-        unregister_code(CM_H);
-        unregister_code(KC_LSFT);
-        unregister_code(KC_RSFT);
-      }
-      break;
-    }
-    case _K: {
-      if (record->event.pressed) {
-        register_code(CM_K);
-        unregister_code(CM_K);
-        unregister_code(KC_LSFT);
-        unregister_code(KC_RSFT);
-      }
-      break;
-    }
-    case _M: {
-      if (record->event.pressed) {
-        register_code(CM_M);
-        unregister_code(CM_M);
-        unregister_code(KC_LSFT);
-        unregister_code(KC_RSFT);
-      }
-      break;
-    }
-    case _J: {
-      if (record->event.pressed) {
-        register_code(CM_J);
-        unregister_code(CM_J);
-        unregister_code(KC_LSFT);
-        unregister_code(KC_RSFT);
       }
       break;
     }
