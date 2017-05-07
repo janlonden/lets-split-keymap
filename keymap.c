@@ -222,8 +222,8 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
       if (record->event.pressed) {
         key_timer = timer_read();
         unregister_code(KC_LSFT);
-      } else {
         register_code(KC_ENT);
+      } else {
         unregister_code(KC_ENT);
       }
       break;
