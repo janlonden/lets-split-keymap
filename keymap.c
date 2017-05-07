@@ -341,8 +341,8 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
       if (record->event.pressed) {
         key_timer = timer_read();
         unregister_code(KC_LSFT);
-      } else {
         register_code(KC_HOME);
+      } else {
         unregister_code(KC_HOME);
       }
       break;
@@ -351,8 +351,8 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
       if (record->event.pressed) {
         key_timer = timer_read();
         unregister_code(KC_LSFT);
-      } else {
         register_code(KC_END);
+      } else {
         unregister_code(KC_END);
       }
       break;
@@ -361,8 +361,8 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
       if (record->event.pressed) {
         key_timer = timer_read();
         unregister_code(KC_LSFT);
-      } else {
         register_code(KC_ESC);
+      } else {
         unregister_code(KC_ESC);
       }
       break;
