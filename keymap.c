@@ -267,6 +267,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
       } else {
         clear_mods();
         layer_off(NUMBERS);
+        layer_off(RIGHT_LAYERS);
       }
       break;
     }
@@ -277,6 +278,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
       } else {
         clear_mods();
         layer_off(DEVELOPMENT);
+        layer_off(RIGHT_LAYERS);
       }
       break;
     }
