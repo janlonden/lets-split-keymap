@@ -2,16 +2,18 @@
 
 ## find keyboard port
 
-ls /dev/tty*
+~~ls /dev/tty*~~
 
 ## erase flash
 
-sudo avrdude -p atmega32u4 -P /dev/ttyACM0 -c avr109 -e
+~~sudo avrdude -p atmega32u4 -P /dev/ttyACM0 -c avr109 -e~~
 
 ## flash eeprom
 
-sudo avrdude -p atmega32u4 -P /dev/ttyACM0 -c avr109 -U eeprom:w:../../.build/eeprom-righthand.eep
+~~sudo avrdude -p atmega32u4 -P /dev/ttyACM0 -c avr109 -U eeprom:w:../../.build/eeprom-righthand.eep~~
 
 ## flash
 
-sudo avrdude -p atmega32u4 -P /dev/ttyACM0 -c avr109 -U flash:w:../../.build/lets_split_rev2_jan.hex
+~~sudo avrdude -p atmega32u4 -P /dev/ttyACM0 -c avr109 -U flash:w:../../.build/lets_split_rev2_jan.hex~~
+
+just run `make lets_split/rev2:jan:avrdude` from qmk-firmware root folder
