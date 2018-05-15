@@ -14,7 +14,4 @@
 // #define MASTER_RIGHT
 // #define EE_HANDS
 
-#define TAPPING_TERM 150
-#define PERMISSIVE_HOLD
-
 #endif
