@@ -2,7 +2,7 @@
 
 ## flash
 
-run `make lets_split/rev2:jan:avrdude` from qmk-firmware root folder
+run `sudo make lets_split/rev2:jan:avrdude` from qmk-firmware root folder.
 
 ## clean build folder
 
