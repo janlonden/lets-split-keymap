@@ -8,6 +8,11 @@ run `sudo make lets_split/rev2:jan:avrdude` from qmk-firmware root folder.
 
 run `make clean`
 
+## Problems
+
+Problem: `avrdude: error: programmer did not respond to command: set addr`
+Solution: `systemctl stop ModemManager.service`
+
 ## old stuff
 
 ~~ls /dev/tty*~~
