@@ -14,6 +14,6 @@ Problem: `avrdude: error: programmer did not respond to command: set addr`
 
 Solution: `systemctl stop ModemManager.service`
 
-Problem: 'avrdude: Error: butterfly programmer uses avr_write_page() but does not provide a cmd() meth' and '***failed;'
+Problem: `avrdude: Error: butterfly programmer uses avr_write_page() but does not provide a cmd() meth` and `***failed;`
 
 Solution: `systemctl stop ModemManager.service`
