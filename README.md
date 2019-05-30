@@ -6,7 +6,7 @@ Run `sudo make lets_split/rev2:jan:avrdude` from qmk-firmware root folder.
 
 ## Clean build folder
 
-run `sudo make clean`
+Run `sudo make clean`
 
 ## Problems
 
