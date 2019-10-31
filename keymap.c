@@ -6,8 +6,6 @@ extern keymap_config_t keymap_config;
 enum custom_layers {
   COLEMAK_SOFT = 0,
   COLEMAK_HARD,
-  CAPSLOCK_SOFT,
-  CAPSLOCK_HARD,
   BROWSER,
   LEFT_LAYERS,
   LEFT_MODS,
@@ -19,124 +17,110 @@ enum custom_layers {
 };
 
 enum custom_keycodes {
-  _BSPACE = SAFE_RANGE,
-  CTRL_BSPACE,
+  _BSPC = SAFE_RANGE,
+  CTL_BSPC,
   _DOWN,
-  _ENTER,
-  _EQUAL,
+  _ENT,
+  _EQL,
   _LALT,
-  _LCTRL,
+  _LCTL,
   _LEFT,
-  _LSHIFT,
-  _MINUS,
-  _QUOTE,
+  _LSFT,
+  _MINS,
+  _QUOT,
   _RALT,
-  _RIGHT,
-  _RSHIFT,
-  _SLASH,
+  _RGHT,
+  _RSFT,
+  _SLSH,
   _UP,
   _END,
-  _ESCAPE,
+  _ESC,
   _HOME,
   RALT_Q,
   RALT_O,
   RALT_W,
-  RALT_SHIFT_Q,
-  RALT_SHIFT_O,
-  RALT_SHIFT_W,
-  SHIFT__LEFT_LAYERS,
-  SHIFT__RIGHT_LAYERS,
-  SET_FUNCTION,
-  SET_NUMBERS,
-  SET_DEVELOPMENT,
-  CTRL__LEFT_MODS,
-  CTRL__RIGHT_MODS,
-  SPACE__BROWSER
+  RALT_SFT_Q,
+  RALT_SFT_O,
+  RALT_SFT_W,
+  SFT__LEFT_LAYERS,
+  SFT__RGHT_LAYERS,
+  SET_FN,
+  SET_NUM,
+  SET_DEV,
+  SPC__BRWSR,
+  LEFT_MODS_,
+  RGHT_MODS_
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [COLEMAK_SOFT] = LAYOUT_ortho_4x12(
-    SPACE__BROWSER, CM_G, CM_D, CM_B, RALT_O, KC_PSCREEN, _______, _______, KC_COMMA, SHIFT__RIGHT_LAYERS, KC_DOT, _______, \
+    SPC__BRWSR, CM_G, CM_D, CM_B, RALT_O, KC_PSCR, _______, _______, KC_COMM, SFT__RGHT_LAYERS, KC_DOT, _______, \
     CM_Q, CM_W, CM_F, CM_P, RALT_W, DF(COLEMAK_SOFT), _______, _______, CM_L, CM_U, CM_Y, CM_SCLN, \
     CM_A, CM_R, CM_S, CM_T, RALT_Q, DF(COLEMAK_HARD), _______, _______, CM_N, CM_E, CM_I, CM_O, \
-    CM_Z, CM_X, CM_C, CM_V, SHIFT__LEFT_LAYERS, TG(CAPSLOCK_SOFT), LCTL(CM_D), KC_SPACE, CM_H, CM_K, CM_M, CM_J \
+    CM_Z, CM_X, CM_C, CM_V, SFT__LEFT_LAYERS, LEFT_MODS_, RGHT_MODS_, KC_SPC, CM_H, CM_K, CM_M, CM_J \
   ),
 
   [COLEMAK_HARD] = LAYOUT_ortho_4x12(
-    SPACE__BROWSER, KC_G, KC_D, KC_B, XXXXXXX, KC_PSCREEN, _______, _______, KC_COMMA, SHIFT__RIGHT_LAYERS, KC_DOT, _______, \
-    KC_Q, KC_W, KC_F, KC_P, XXXXXXX, DF(COLEMAK_SOFT), _______, _______, KC_L, KC_U, KC_Y, KC_SCOLON, \
+    SPC__BRWSR, KC_G, KC_D, KC_B, XXXXXXX, KC_PSCR, _______, _______, KC_COMM, SFT__RGHT_LAYERS, KC_DOT, _______, \
+    KC_Q, KC_W, KC_F, KC_P, XXXXXXX, DF(COLEMAK_SOFT), _______, _______, KC_L, KC_U, KC_Y, KC_SCLN, \
     KC_A, KC_R, KC_S, KC_T, XXXXXXX, DF(COLEMAK_HARD), _______, _______, KC_N, KC_E, KC_I, KC_O, \
-    KC_Z, KC_X, KC_C, KC_V, SHIFT__LEFT_LAYERS, TG(CAPSLOCK_HARD), LCTL(KC_D), KC_SPACE, KC_H, KC_K, KC_M, KC_J \
-  ),
-
-  [CAPSLOCK_SOFT] = LAYOUT_ortho_4x12(
-    _______, S(CM_G), S(CM_D), S(CM_B), RALT_SHIFT_O, _______, _______, _______, _______, _______, _______, _______, \
-    S(CM_Q), S(CM_W), S(CM_F), S(CM_P), RALT_SHIFT_W, _______, _______, _______, S(CM_L), S(CM_U), S(CM_Y), _______, \
-    S(CM_A), S(CM_R), S(CM_S), S(CM_T), RALT_SHIFT_Q, _______, _______, _______, S(CM_N), S(CM_E), S(CM_I), S(CM_O), \
-    S(CM_Z), S(CM_X), S(CM_C), S(CM_V), _______, _______, _______, _______, S(CM_H), S(CM_K), S(CM_M), S(CM_J) \
-  ),
-
-  [CAPSLOCK_HARD] = LAYOUT_ortho_4x12(
-    _______, S(KC_G), S(KC_D), S(KC_B), _______, _______, _______, _______, _______, _______, _______, _______, \
-    S(KC_Q), S(KC_W), S(KC_F), S(KC_P), _______, _______, _______, _______, S(KC_L), S(KC_U), S(KC_Y), _______, \
-    S(KC_A), S(KC_R), S(KC_S), S(KC_T), _______, _______, _______, _______, S(KC_N), S(KC_E), S(KC_I), S(KC_O), \
-    S(KC_Z), S(KC_X), S(KC_C), S(KC_V), _______, _______, _______, _______, S(KC_H), S(KC_K), S(KC_M), S(KC_J) \
+    KC_Z, KC_X, KC_C, KC_V, SFT__LEFT_LAYERS, LEFT_MODS_, RGHT_MODS_, KC_SPC, KC_H, KC_K, KC_M, KC_J \
   ),
 
   [LEFT_LAYERS] = LAYOUT_ortho_4x12(
-    _______, _ENTER, CTRL__LEFT_MODS, _ESCAPE, _______, RESET, _______, _______, _______, _______, _______, _______, \
+    _______, _ENT, KC_LCTL, _ESC, _______, _______, _______, _______, _______, _______, _______, _______, \
     _______, _HOME, _UP, _END, _______, _______, _______, _______, _______, _______, _______, _______, \
-    SET_FUNCTION, _LEFT, _DOWN, _RIGHT, _______, _______, _______, _______, _______, _______, _______, _______, \
-    SET_NUMBERS, SET_DEVELOPMENT, CTRL_BSPACE, _BSPACE, _______, _______, _______, _______, _______, _______, _______, _______ \
+    SET_FN, _LEFT, _DOWN, _RGHT, _______, _______, _______, _______, _______, _______, _______, _______, \
+    SET_NUM, SET_DEV, CTL_BSPC, _BSPC, _______, _______, _______, _______, _______, _______, _______, _______ \
   ),
 
   [LEFT_MODS] = LAYOUT_ortho_4x12(
-    _______, _______, CTRL__LEFT_MODS, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
-    _______, _LSHIFT, _______, _LCTRL, _______, _______, _______, _______, _______, _______, _______, _______, \
-    _LALT, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
-    _______, _______, _______, _______, _______, _RALT, _______, _______, _______, _______, _______, _______ \
+    KC_RALT, KC_LALT, KC_LSFT, KC_LCTL, KC_LGUI, _______, _______, _______, _______, _______, _______, _______, \
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ \
   ),
 
   [RIGHT_LAYERS] = LAYOUT_ortho_4x12(
-    _______, _______, _______, _______, _______, _______, _______, _______, _SLASH, _______, _EQUAL, _______, \
-    _______, _______, _______, _______, _______, _______, _______, _______, _QUOTE, _______, _______, _______, \
-    _______, _______, _______, _______, _______, _______, _______, _______, _MINUS, _______, _______, _______, \
-    _______, _______, _______, _______, _______, _______, _______, CTRL__RIGHT_MODS, _______, _______, _______, _______ \
+    _______, _______, _______, _______, _______, _______, _______, _______, _SLSH, _______, _EQL, _______, \
+    _______, _______, _______, _______, _______, _______, _______, _______, _QUOT, _______, _______, _______, \
+    _______, _______, _______, _______, _______, _______, _______, _______, _MINS, _______, _______, _______, \
+    _______, _______, _______, _______, _______, _______, _______, KC_LCTL, _______, _______, _______, _______ \
   ),
 
   [RIGHT_MODS] = LAYOUT_ortho_4x12(
+    _______, _______, _______, _______, _______, _______, _______, KC_LGUI, KC_LCTL, KC_LSFT, KC_LALT, KC_RALT, \
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
-    _______, _______, _______, _______, _______, _______, _______, _______, _LCTRL, _RALT, _RSHIFT, _LALT, \
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
-    _______, _______, _______, _______, _______, _______, _______, CTRL__RIGHT_MODS, _______, _______, _______, _______ \
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ \
   ),
 
   [FUNCTION] = LAYOUT_ortho_4x12(
-    _______, KC_PGUP, KC_DEL, KC_PGDOWN, _______, _______, _______, _______, KC_F10, KC_F11, KC_F12, _______, \
-    _______, LCTL(KC_PGUP), KC_TAB, LCTL(KC_PGDOWN), _______, _______, _______, _______, KC_F7, KC_F8, KC_F9, _______, \
-    SET_FUNCTION, KC_LSHIFT, KC_LALT, KC_LCTRL, _______, _______, _______, _______, KC_F4, KC_F5, KC_F6, _______, \
-    _______, _______, _______, KC_BTN3, _______, KC_RALT, _______, _______, KC_F1, KC_F2, KC_F3, _______ \
+    _______, KC_PGUP, KC_DEL, KC_PGDN, _______, _______, _______, _______, KC_F10, KC_F11, KC_F12, _______, \
+    _______, LCTL(KC_PGUP), KC_TAB, LCTL(KC_PGDN), _______, _______, _______, _______, KC_F7, KC_F8, KC_F9, _______, \
+    SET_FN, KC_LALT, KC_LSFT, KC_LCTL, _______, _______, _______, _______, KC_F4, KC_F5, KC_F6, _______, \
+    _______, _______, _______, _______, _______, KC_RALT, _______, _______, KC_F1, KC_F2, KC_F3, _______ \
   ),
 
   [NUMBERS] = LAYOUT_ortho_4x12(
     _______, _______, _______, _______, _______, _______, _______, _______, KC_7, KC_8, KC_9, _______, \
-    _______, _______, KC_LALT, KC_TAB, _______, _______, _______, _______, KC_4, KC_5, KC_6, _______, \
-    _______, LCTL(KC_X), LCTL(KC_C), LCTL(KC_V), _______, _______, _______, _______, KC_1, KC_2, KC_3, KC_BSPACE, \
-    SET_NUMBERS, KC_LSHIFT, KC_LALT, KC_LCTRL, _______, KC_RALT, _______, _______, KC_0, KC_DOT, _______, KC_ENTER \
+    _______, S(KC_TAB), KC_LALT, KC_TAB, _______, _______, _______, _______, KC_4, KC_5, KC_6, _______, \
+    _______, LCTL(KC_X), LCTL(KC_C), LCTL(KC_V), _______, _______, _______, _______, KC_1, KC_2, KC_3, KC_BSPC, \
+    SET_NUM, KC_LALT, KC_LSFT, KC_LCTL, _______, KC_RALT, _______, _______, KC_0, KC_DOT, _______, KC_ENT \
   ),
 
   [DEVELOPMENT] = LAYOUT_ortho_4x12(
-    _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_GRAVE, _______, _______, \
-    _______, _______, _______, _______, _______, _______, _______, _______, KC_LEFT_PAREN, KC_RIGHT_PAREN, KC_EXCLAIM, _______, \
-    _______, _______, LCTL(CM_S), _______, _______, _______, _______, _______, S(KC_LBRACKET), S(KC_RBRACKET), S(KC_BSLASH), _______, \
-    _______, SET_DEVELOPMENT, _______, _______, _______, _______, _______, _______, KC_LBRACKET, KC_RBRACKET, KC_BSLASH, _______ \
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_GRV, _______, _______, \
+    _______, _______, _______, _______, _______, _______, _______, _______, KC_LPRN, KC_RPRN, KC_EXLM, _______, \
+    _______, _______, LCTL(CM_S), _______, _______, _______, _______, _______, S(KC_LBRC), S(KC_RBRC), S(KC_BSLS), _______, \
+    _______, SET_DEV, _______, _______, _______, _______, _______, _______, KC_LBRC, KC_RBRC, KC_BSLS, _______ \
   ),
 
   [BROWSER] = LAYOUT_ortho_4x12(
-    _______, S(KC_SPACE), _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
+    _______, S(KC_SPC), _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
     _______, KC_BTN3, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
     _______, LCTL(KC_W), _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
-    _______, _______, LCTL(KC_PGUP), LCTL(KC_PGDOWN), KC_ENT, _______, _______, _______, _______, _______, _______, _______ \
+    _______, _______, LCTL(KC_PGUP), LCTL(KC_PGDN), KC_ENT, _______, _______, _______, _______, _______, _______, _______ \
   )
 };
 
@@ -159,92 +143,74 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         SEND_STRING(SS_RALT("w"));
       }
       return false;
-    case RALT_SHIFT_O:
+    case RALT_SFT_O:
       if (record->event.pressed) {
         SEND_STRING(SS_LSFT(SS_RALT("p")));
       }
       return false;
-    case RALT_SHIFT_Q:
+    case RALT_SFT_Q:
       if (record->event.pressed) {
         SEND_STRING(SS_LSFT(SS_RALT("q")));
       }
       return false;
-    case RALT_SHIFT_W:
+    case RALT_SFT_W:
       if (record->event.pressed) {
         SEND_STRING(SS_LSFT(SS_RALT("w")));
       }
       return false;
-    case _ENTER:
+    case _ENT:
       if (record->event.pressed) {
-        unregister_code(KC_LSHIFT);
-        register_code(KC_ENTER);
+        unregister_code(KC_LSFT);
+        register_code(KC_ENT);
       } else {
-        unregister_code(KC_ENTER);
+        unregister_code(KC_ENT);
       }
       return false;
-    case SHIFT__LEFT_LAYERS:
+    case SFT__LEFT_LAYERS:
       if (record->event.pressed) {
         layer_on(LEFT_LAYERS);
-        register_code(KC_LSHIFT);
+        register_code(KC_LSFT);
       } else {
-        unregister_code(KC_LSHIFT);
+        unregister_code(KC_LSFT);
         layer_off(LEFT_LAYERS);
       }
       return false;
-    case SHIFT__RIGHT_LAYERS:
+    case SFT__RGHT_LAYERS:
       if (record->event.pressed) {
         layer_on(RIGHT_LAYERS);
-        register_code(KC_RSHIFT);
+        register_code(KC_RSFT);
       } else {
-        unregister_code(KC_RSHIFT);
+        unregister_code(KC_RSFT);
         layer_off(RIGHT_LAYERS);
       }
       return false;
-    case SET_FUNCTION:
+    case SET_FN:
       if (record->event.pressed) {
-        unregister_code(KC_LSHIFT);
+        unregister_code(KC_LSFT);
         layer_on(FUNCTION);
       } else {
         layer_off(FUNCTION);
       }
       return false;
-    case SET_NUMBERS:
+    case SET_NUM:
       if (record->event.pressed) {
-        unregister_code(KC_LSHIFT);
+        unregister_code(KC_LSFT);
         layer_on(NUMBERS);
       } else {
         layer_off(NUMBERS);
       }
       return false;
-    case SET_DEVELOPMENT:
+    case SET_DEV:
       if (record->event.pressed) {
-        unregister_code(KC_LSHIFT);
+        unregister_code(KC_LSFT);
         layer_on(DEVELOPMENT);
       } else {
         layer_off(DEVELOPMENT);
       }
       return false;
-    case CTRL__LEFT_MODS:
-      if (record->event.pressed) {
-        layer_on(LEFT_MODS);
-        register_code(KC_LCTRL);
-      } else {
-        unregister_code(KC_LCTRL);
-        layer_off(LEFT_MODS);
-      }
-      return false;
-    case CTRL__RIGHT_MODS:
-      if (record->event.pressed) {
-        layer_on(RIGHT_MODS);
-        register_code(KC_LCTRL);
-      } else {
-        unregister_code(KC_LCTRL);
-        layer_off(RIGHT_MODS);
-      }
-      return false;
     case _UP:
       if (record->event.pressed) {
-        unregister_code(KC_LSHIFT);
+        unregister_code(KC_LSFT);
         register_code(KC_UP);
       } else {
         unregister_code(KC_UP);
@@ -252,7 +218,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
     case _LEFT:
       if (record->event.pressed) {
-        unregister_code(KC_LSHIFT);
+        unregister_code(KC_LSFT);
         register_code(KC_LEFT);
       } else {
         unregister_code(KC_LEFT);
@@ -260,23 +226,23 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
     case _DOWN:
       if (record->event.pressed) {
-        unregister_code(KC_LSHIFT);
+        unregister_code(KC_LSFT);
         register_code(KC_DOWN);
       } else {
         unregister_code(KC_DOWN);
       }
       return false;
-    case _RIGHT:
+    case _RGHT:
       if (record->event.pressed) {
-        unregister_code(KC_LSHIFT);
-        register_code(KC_RIGHT);
+        unregister_code(KC_LSFT);
+        register_code(KC_RGHT);
       } else {
-        unregister_code(KC_RIGHT);
+        unregister_code(KC_RGHT);
       }
       return false;
     case _HOME:
       if (record->event.pressed) {
-        unregister_code(KC_LSHIFT);
+        unregister_code(KC_LSFT);
         register_code(KC_HOME);
       } else {
         unregister_code(KC_HOME);
@@ -284,73 +250,73 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
     case _END:
       if (record->event.pressed) {
-        unregister_code(KC_LSHIFT);
+        unregister_code(KC_LSFT);
         register_code(KC_END);
       } else {
         unregister_code(KC_END);
       }
       return false;
-    case _ESCAPE:
+    case _ESC:
       if (record->event.pressed) {
-        unregister_code(KC_LSHIFT);
-        register_code(KC_ESCAPE);
+        unregister_code(KC_LSFT);
+        register_code(KC_ESC);
       } else {
-        unregister_code(KC_ESCAPE);
+        unregister_code(KC_ESC);
       }
       return false;
-    case _SLASH:
+    case _SLSH:
       if (record->event.pressed) {
-        unregister_code(KC_RSHIFT);
-        register_code(KC_SLASH);
+        unregister_code(KC_RSFT);
+        register_code(KC_SLSH);
       } else {
-        unregister_code(KC_SLASH);
+        unregister_code(KC_SLSH);
       }
       return false;
-    case _QUOTE:
+    case _QUOT:
       if (record->event.pressed) {
-        unregister_code(KC_RSHIFT);
-        register_code(KC_QUOTE);
+        unregister_code(KC_RSFT);
+        register_code(KC_QUOT);
       } else {
-        unregister_code(KC_QUOTE);
+        unregister_code(KC_QUOT);
       }
       return false;
-    case _MINUS:
+    case _MINS:
       if (record->event.pressed) {
-        unregister_code(KC_RSHIFT);
-        register_code(KC_MINUS);
+        unregister_code(KC_RSFT);
+        register_code(KC_MINS);
       } else {
-        unregister_code(KC_MINUS);
+        unregister_code(KC_MINS);
       }
       return false;
-    case _EQUAL:
+    case _EQL:
       if (record->event.pressed) {
-        unregister_code(KC_RSHIFT);
-        register_code(KC_EQUAL);
+        unregister_code(KC_RSFT);
+        register_code(KC_EQL);
       } else {
-        unregister_code(KC_EQUAL);
+        unregister_code(KC_EQL);
       }
       return false;
-    case _BSPACE:
+    case _BSPC:
       if (record->event.pressed) {
-        unregister_code(KC_LSHIFT);
-        register_code(KC_BSPACE);
+        unregister_code(KC_LSFT);
+        register_code(KC_BSPC);
       } else {
-        unregister_code(KC_BSPACE);
+        unregister_code(KC_BSPC);
       }
       return false;
-    case CTRL_BSPACE:
+    case CTL_BSPC:
       if (record->event.pressed) {
-        unregister_code(KC_LSHIFT);
-        register_code(KC_LCTRL);
-        register_code(KC_BSPACE);
+        unregister_code(KC_LSFT);
+        register_code(KC_LCTL);
+        register_code(KC_BSPC);
       } else {
-        unregister_code(KC_BSPACE);
-        unregister_code(KC_LCTRL);
+        unregister_code(KC_BSPC);
+        unregister_code(KC_LCTL);
       }
       return false;
     case _RALT:
       if (record->event.pressed) {
-        unregister_code(KC_LCTRL);
+        unregister_code(KC_LCTL);
         register_code(KC_RALT);
       } else {
         unregister_code(KC_RALT);
@@ -358,46 +324,60 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
     case _LALT:
       if (record->event.pressed) {
-        unregister_code(KC_LCTRL);
+        unregister_code(KC_LCTL);
         register_code(KC_LALT);
       } else {
         unregister_code(KC_LALT);
       }
       return false;
-    case _LSHIFT:
+    case _LSFT:
       if (record->event.pressed) {
-        unregister_code(KC_LCTRL);
-        register_code(KC_LSHIFT);
+        unregister_code(KC_LCTL);
+        register_code(KC_LSFT);
       } else {
-        unregister_code(KC_LSHIFT);
+        unregister_code(KC_LSFT);
       }
       return false;
-    case _RSHIFT:
+    case _RSFT:
       if (record->event.pressed) {
-        unregister_code(KC_LCTRL);
-        register_code(KC_RSHIFT);
+        unregister_code(KC_LCTL);
+        register_code(KC_RSFT);
       } else {
-        unregister_code(KC_RSHIFT);
+        unregister_code(KC_RSFT);
       }
       return false;
-    case _LCTRL:
+    case _LCTL:
       if (record->event.pressed) {
-        unregister_code(KC_LCTRL);
-        register_code(KC_LCTRL);
+        unregister_code(KC_LCTL);
+        register_code(KC_LCTL);
       } else {
-        unregister_code(KC_LCTRL);
+        unregister_code(KC_LCTL);
       }
       return false;
-    case SPACE__BROWSER:
+    case SPC__BRWSR:
       if (record->event.pressed) {
         key_timer = timer_read();
         layer_on(BROWSER);
       } else {
         if (timer_elapsed(key_timer) < 150) {
-          register_code(KC_SPACE);
-          unregister_code(KC_SPACE);
+          register_code(KC_SPC);
+          unregister_code(KC_SPC);
         }
         layer_off(BROWSER);
+      }
+      return false;
+    case LEFT_MODS_:
+      if (record->event.pressed) {
+        layer_on(LEFT_MODS);
+      } else {
+        layer_off(LEFT_MODS);
+      }
+      return false;
+    case RGHT_MODS_:
+      if (record->event.pressed) {
+        layer_on(RIGHT_MODS);
+      } else {
+        layer_off(RIGHT_MODS);
       }
       return false;
   }
