@@ -193,11 +193,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
     case SFT__RGHT_LAYERS:
       if (record->event.pressed) {
-        layer_on(RGHT_LAYERS);
+        layer_on(RIGHT_LAYERS);
         register_code(KC_RSFT);
       } else {
         unregister_code(KC_RSFT);
-        layer_off(RGHT_LAYERS);
+        layer_off(RIGHT_LAYERS);
       }
       return false;
     case SET_FN:
@@ -235,11 +235,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
     case CTL__RGHT_MODS:
       if (record->event.pressed) {
-        layer_on(RGHT_MODS);
+        layer_on(RIGHT_MODS);
         register_code(KC_LCTL);
       } else {
         unregister_code(KC_LCTL);
-        layer_off(RGHT_MODS);
+        layer_off(RIGHT_MODS);
       }
       return false;
     case _UP:
