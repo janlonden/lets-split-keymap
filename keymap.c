@@ -6,6 +6,8 @@ extern keymap_config_t keymap_config;
 enum custom_layers {
   COLEMAK_SOFT = 0,
   COLEMAK_HARD,
+  CAPSLOCK_SOFT,
+  CAPSLOCK_HARD,
   BROWSER,
   LEFT_LAYERS,
   LEFT_MODS,
@@ -47,9 +49,9 @@ enum custom_keycodes {
   SET_FN,
   SET_NUM,
   SET_DEV,
-  SPC__BRWSR,
-  LEFT_MODS_,
-  RGHT_MODS_
+  CTL__LEFT_MODS,
+  CTL__RGHT_MODS,
+  SPC__BRWSR
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -57,60 +59,74 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     SPC__BRWSR, CM_G, CM_D, CM_B, RALT_O, KC_PSCR, _______, _______, KC_COMM, SFT__RGHT_LAYERS, KC_DOT, _______, \
     CM_Q, CM_W, CM_F, CM_P, RALT_W, DF(COLEMAK_SOFT), _______, _______, CM_L, CM_U, CM_Y, CM_SCLN, \
     CM_A, CM_R, CM_S, CM_T, RALT_Q, DF(COLEMAK_HARD), _______, _______, CM_N, CM_E, CM_I, CM_O, \
-    CM_Z, CM_X, CM_C, CM_V, SFT__LEFT_LAYERS, LEFT_MODS_, RGHT_MODS_, KC_SPC, CM_H, CM_K, CM_M, CM_J \
+    CM_Z, CM_X, CM_C, CM_V, SFT__LEFT_LAYERS, TG(CAPSLOCK_SOFT), LCTL(CM_D), KC_SPC, CM_H, CM_K, CM_M, CM_J \
   ),
 
   [COLEMAK_HARD] = LAYOUT_ortho_4x12(
     SPC__BRWSR, KC_G, KC_D, KC_B, XXXXXXX, KC_PSCR, _______, _______, KC_COMM, SFT__RGHT_LAYERS, KC_DOT, _______, \
     KC_Q, KC_W, KC_F, KC_P, XXXXXXX, DF(COLEMAK_SOFT), _______, _______, KC_L, KC_U, KC_Y, KC_SCLN, \
     KC_A, KC_R, KC_S, KC_T, XXXXXXX, DF(COLEMAK_HARD), _______, _______, KC_N, KC_E, KC_I, KC_O, \
-    KC_Z, KC_X, KC_C, KC_V, SFT__LEFT_LAYERS, LEFT_MODS_, RGHT_MODS_, KC_SPC, KC_H, KC_K, KC_M, KC_J \
+    KC_Z, KC_X, KC_C, KC_V, SFT__LEFT_LAYERS, TG(CAPSLOCK_HARD), LCTL(KC_D), KC_SPC, KC_H, KC_K, KC_M, KC_J \
+  ),
+
+  [CAPSLOCK_SOFT] = LAYOUT_ortho_4x12(
+    _______, S(CM_G), S(CM_D), S(CM_B), RALT_SFT_O, _______, _______, _______, _______, _______, _______, _______, \
+    S(CM_Q), S(CM_W), S(CM_F), S(CM_P), RALT_SFT_W, _______, _______, _______, S(CM_L), S(CM_U), S(CM_Y), _______, \
+    S(CM_A), S(CM_R), S(CM_S), S(CM_T), RALT_SFT_Q, _______, _______, _______, S(CM_N), S(CM_E), S(CM_I), S(CM_O), \
+    S(CM_Z), S(CM_X), S(CM_C), S(CM_V), _______, _______, _______, _______, S(CM_H), S(CM_K), S(CM_M), S(CM_J) \
+  ),
+
+  [CAPSLOCK_HARD] = LAYOUT_ortho_4x12(
+    _______, S(KC_G), S(KC_D), S(KC_B), _______, _______, _______, _______, _______, _______, _______, _______, \
+    S(KC_Q), S(KC_W), S(KC_F), S(KC_P), _______, _______, _______, _______, S(KC_L), S(KC_U), S(KC_Y), _______, \
+    S(KC_A), S(KC_R), S(KC_S), S(KC_T), _______, _______, _______, _______, S(KC_N), S(KC_E), S(KC_I), S(KC_O), \
+    S(KC_Z), S(KC_X), S(KC_C), S(KC_V), _______, _______, _______, _______, S(KC_H), S(KC_K), S(KC_M), S(KC_J) \
   ),
 
   [LEFT_LAYERS] = LAYOUT_ortho_4x12(
-    _______, _ENT, KC_LCTL, _ESC, _______, _______, _______, _______, _______, _______, _______, _______, \
+    _______, _ENT, CTL__LEFT_MODS, _ESC, _______, _______, _______, _______, _______, _______, _______, _______, \
     _______, _HOME, _UP, _END, _______, _______, _______, _______, _______, _______, _______, _______, \
     SET_FN, _LEFT, _DOWN, _RGHT, _______, _______, _______, _______, _______, _______, _______, _______, \
     SET_NUM, SET_DEV, CTL_BSPC, _BSPC, _______, _______, _______, _______, _______, _______, _______, _______ \
   ),
 
   [LEFT_MODS] = LAYOUT_ortho_4x12(
-    KC_RALT, KC_LALT, KC_LSFT, KC_LCTL, KC_LGUI, _______, _______, _______, _______, _______, _______, _______, \
-    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
-    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
-    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ \
+    _______, _______, CTL__LEFT_MODS, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
+    _______, _LSFT, _______, _LCTL, _______, _______, _______, _______, _______, _______, _______, _______, \
+    _LALT, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
+    _______, _______, _______, _______, _______, _RALT, _______, _______, _______, _______, _______, _______ \
   ),
 
   [RIGHT_LAYERS] = LAYOUT_ortho_4x12(
     _______, _______, _______, _______, _______, _______, _______, _______, _SLSH, _______, _EQL, _______, \
     _______, _______, _______, _______, _______, _______, _______, _______, _QUOT, _______, _______, _______, \
     _______, _______, _______, _______, _______, _______, _______, _______, _MINS, _______, _______, _______, \
-    _______, _______, _______, _______, _______, _______, _______, KC_LCTL, _______, _______, _______, _______ \
+    _______, _______, _______, _______, _______, _______, _______, CTL__RGHT_MODS, _______, _______, _______, _______ \
   ),
 
   [RIGHT_MODS] = LAYOUT_ortho_4x12(
-    _______, _______, _______, _______, _______, _______, _______, KC_LGUI, KC_LCTL, KC_LSFT, KC_LALT, KC_RALT, \
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
+    _______, _______, _______, _______, _______, _______, _______, _______, _LCTL, _RALT, _RSFT, _LALT, \
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
-    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ \
+    _______, _______, _______, _______, _______, _______, _______, CTL__RGHT_MODS, _______, _______, _______, _______ \
   ),
 
   [FUNCTION] = LAYOUT_ortho_4x12(
     _______, KC_PGUP, KC_DEL, KC_PGDN, _______, _______, _______, _______, KC_F10, KC_F11, KC_F12, _______, \
     _______, LCTL(KC_PGUP), KC_TAB, LCTL(KC_PGDN), _______, _______, _______, _______, KC_F7, KC_F8, KC_F9, _______, \
-    SET_FN, KC_LALT, KC_LSFT, KC_LCTL, _______, _______, _______, _______, KC_F4, KC_F5, KC_F6, _______, \
-    _______, _______, _______, _______, _______, KC_RALT, _______, _______, KC_F1, KC_F2, KC_F3, _______ \
+    SET_FN, KC_LSFT, KC_LALT, KC_LCTL, _______, _______, _______, _______, KC_F4, KC_F5, KC_F6, _______, \
+    _______, _______, _______, KC_BTN3, _______, KC_RALT, _______, _______, KC_F1, KC_F2, KC_F3, _______ \
   ),
 
   [NUMBERS] = LAYOUT_ortho_4x12(
     _______, _______, _______, _______, _______, _______, _______, _______, KC_7, KC_8, KC_9, _______, \
     _______, S(KC_TAB), KC_LALT, KC_TAB, _______, _______, _______, _______, KC_4, KC_5, KC_6, _______, \
     _______, LCTL(KC_X), LCTL(KC_C), LCTL(KC_V), _______, _______, _______, _______, KC_1, KC_2, KC_3, KC_BSPC, \
-    SET_NUM, KC_LALT, KC_LSFT, KC_LCTL, _______, KC_RALT, _______, _______, KC_0, KC_DOT, _______, KC_ENT \
+    SET_NUM, KC_LSFT, KC_LALT, KC_LCTL, _______, KC_RALT, _______, _______, KC_0, KC_DOT, _______, KC_ENT \
   ),
 
   [DEVELOPMENT] = LAYOUT_ortho_4x12(
-    _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_GRV, _______, _______, \
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_GRAVE, _______, _______, \
     _______, _______, _______, _______, _______, _______, _______, _______, KC_LPRN, KC_RPRN, KC_EXLM, _______, \
     _______, _______, LCTL(CM_S), _______, _______, _______, _______, _______, S(KC_LBRC), S(KC_RBRC), S(KC_BSLS), _______, \
     _______, SET_DEV, _______, _______, _______, _______, _______, _______, KC_LBRC, KC_RBRC, KC_BSLS, _______ \
@@ -177,11 +193,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
     case SFT__RGHT_LAYERS:
       if (record->event.pressed) {
-        layer_on(RIGHT_LAYERS);
+        layer_on(RGHT_LAYERS);
         register_code(KC_RSFT);
       } else {
         unregister_code(KC_RSFT);
-        layer_off(RIGHT_LAYERS);
+        layer_off(RGHT_LAYERS);
       }
       return false;
     case SET_FN:
@@ -206,6 +222,24 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         layer_on(DEVELOPMENT);
       } else {
         layer_off(DEVELOPMENT);
+      }
+      return false;
+    case CTL__LEFT_MODS:
+      if (record->event.pressed) {
+        layer_on(LEFT_MODS);
+        register_code(KC_LCTL);
+      } else {
+        unregister_code(KC_LCTL);
+        layer_off(LEFT_MODS);
+      }
+      return false;
+    case CTL__RGHT_MODS:
+      if (record->event.pressed) {
+        layer_on(RGHT_MODS);
+        register_code(KC_LCTL);
+      } else {
+        unregister_code(KC_LCTL);
+        layer_off(RGHT_MODS);
       }
       return false;
     case _UP:
@@ -364,20 +398,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           unregister_code(KC_SPC);
         }
         layer_off(BROWSER);
-      }
-      return false;
-    case LEFT_MODS_:
-      if (record->event.pressed) {
-        layer_on(LEFT_MODS);
-      } else {
-        layer_off(LEFT_MODS);
-      }
-      return false;
-    case RGHT_MODS_:
-      if (record->event.pressed) {
-        layer_on(RIGHT_MODS);
-      } else {
-        layer_off(RIGHT_MODS);
       }
       return false;
   }
